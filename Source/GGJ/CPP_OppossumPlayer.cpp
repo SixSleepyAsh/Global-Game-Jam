@@ -23,11 +23,11 @@ ACPP_OppossumPlayer::ACPP_OppossumPlayer()
 
 	CameraComp->SetupAttachment(springArm, USpringArmComponent::SocketName);
 
-	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->bOrientRotationToMovement = false;
 
-	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	GetCharacterMovement()->bUseControllerDesiredRotation = false;
 
-	GetCharacterMovement()->bIgnoreBaseRotation = true;
+	GetCharacterMovement()->bIgnoreBaseRotation = false;
 }
 
 // Called when the game starts or when spawned
@@ -35,6 +35,36 @@ void ACPP_OppossumPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ACPP_OppossumPlayer::MoveForward(float InputAxis)
+{
+	if ((Controller != nullptr) && (InputAxis != 0.0f))
+	{
+		// Find out which way is forward
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// Get forward vector
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, InputAxis);
+	}
+}
+
+void ACPP_OppossumPlayer::MoveRight(float InputAxis)
+{
+	if ((Controller != nullptr) && (InputAxis != 0.0f))
+	{
+		// Find out which way is right
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// Get right vector 
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+		// Add movement in that direction
+		AddMovementInput(Direction, InputAxis);
+	}
 }
 
 // Called every frame
@@ -49,5 +79,10 @@ void ACPP_OppossumPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInput
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+
+	PlayerInputComponent->BindAxis("MoveForward", this, &ACPP_OppossumPlayer::MoveForward);
+	PlayerInputComponent->BindAxis("MoveBackwards", this, &ACPP_OppossumPlayer::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ACPP_OppossumPlayer::MoveRight);
+	PlayerInputComponent->BindAxis("MoveLeft", this, &ACPP_OppossumPlayer::MoveRight);
 }
 

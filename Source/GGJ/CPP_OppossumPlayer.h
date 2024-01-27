@@ -24,6 +24,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UCameraComponent* CameraComp;
+
+	UFUNCTION(BlueprintCallable)
+		void MoveForward(float InputAxis);
+
+	UFUNCTION(BlueprintCallable)
+		void MoveRight(float InputAxis);
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
