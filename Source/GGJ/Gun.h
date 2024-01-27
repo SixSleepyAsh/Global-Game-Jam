@@ -4,20 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "CPP_BaseGun.generated.h"
+#include "EnhancedInputComponent.h"
+#include "Gun.generated.h"
 
 UCLASS()
-class GGJ_API ACPP_BaseGun : public APawn
+class GGJ_API AGun : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	ACPP_BaseGun();
+	AGun();
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool firing = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float fireDelay = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float currentFireDelay = 0;
+
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<class AEggBomb> ProjectileClass;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void startShooting();
+	void stopShooting();
 
 public:	
 	// Called every frame
