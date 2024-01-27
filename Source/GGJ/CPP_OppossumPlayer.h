@@ -19,6 +19,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class USpringArmComponent* springArm;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UCameraComponent* CameraComp;
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
@@ -28,7 +33,8 @@ public:
 	   bool isDead = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-		
+		bool isJumping = false;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
