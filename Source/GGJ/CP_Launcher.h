@@ -21,7 +21,7 @@ protected:
 
 	// Hold a PreFab of the actor to spawn
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun")
-	class AActor* projectile;
+	TSubclassOf<AActor> projectile;
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun")

@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CPP_OppossumPlayer.h"
+#include "CP_Launcher.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -65,6 +66,27 @@ void ACPP_OppossumPlayer::MoveRight(float InputAxis)
 		// Add movement in that direction
 		AddMovementInput(Direction, InputAxis);
 	}
+}
+
+AActor* ACPP_OppossumPlayer::GetGun()
+{
+	TArray<AActor*> FoundActors;
+
+	GetAttachedActors(FoundActors);
+
+	for (AActor* Actor : FoundActors)
+	{
+		ACP_Launcher* Launcher = Cast<ACP_Launcher>(Actor);
+		if (!Launcher)
+		{
+			continue;
+		}
+
+		return Launcher;
+	}
+
+	return nullptr;
+	
 }
 
 // Called every frame
