@@ -30,6 +30,27 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 		void MoveRight(float InputAxis);
+
+	UFUNCTION(BlueprintCallable)
+		void Dash();
+
+	UFUNCTION(BlueprintCallable)
+		void StopDash();
+
+	UFUNCTION(BlueprintCallable)
+		void ApplyRecoil(float amount);
+
+	// Timer for dash duration
+	FTimerHandle dashTimerHandle;
+
+	// direction we are facing
+	FVector moveDirection;
+
+private:
+
+	// update our properties
+	void Update();
+
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
@@ -41,9 +62,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 		bool isJumping = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+		float dashSpeed = 1000.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+		float dashDuration = 0.5f;
+
 	UFUNCTION(BlueprintCallable)
 		AActor* GetGun();
-
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

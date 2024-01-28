@@ -48,6 +48,8 @@ void ACPP_OppossumPlayer::MoveForward(float InputAxis)
 
 		// Get forward vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		moveDirection = Direction;
+
 		AddMovementInput(Direction, InputAxis);
 	}
 }
@@ -62,9 +64,52 @@ void ACPP_OppossumPlayer::MoveRight(float InputAxis)
 
 		// Get right vector 
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		moveDirection = Direction;
 
 		// Add movement in that direction
 		AddMovementInput(Direction, InputAxis);
+	}
+}
+
+// dash in the current direction
+void ACPP_OppossumPlayer::Dash()
+{
+	if (!Controller)
+	{
+		return;
+	}
+
+	if (moveDirection.IsNearlyZero())
+	{
+		moveDirection = GetActorForwardVector();
+	}
+
+	// Apply the dash impulse (or change in velocity)
+	GetCharacterMovement()->BrakingFrictionFactor = 0.f; // Temporarily reduce friction
+	LaunchCharacter(moveDirection * dashSpeed, true, true);
+
+	// apply timer to stop dash
+	GetWorldTimerManager().SetTimer(dashTimerHandle, this, &ACPP_OppossumPlayer::StopDash, dashDuration, false);
+}
+
+// stop dashing
+void ACPP_OppossumPlayer::StopDash()
+{
+}
+
+// launch the player in a given direction
+void ACPP_OppossumPlayer::ApplyRecoil(float amount)
+{
+	LaunchCharacter(moveDirection * amount, true, true);
+}
+
+// private update function for updating values
+void ACPP_OppossumPlayer::Update()
+{
+	if (!moveDirection.IsZero())
+	{
+		const FVector CurrentVelocity = GetCharacterMovement()->Velocity;
+		moveDirection = CurrentVelocity.GetSafeNormal();
 	}
 }
 
@@ -94,6 +139,7 @@ void ACPP_OppossumPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Update();
 }
 
 // Called to bind functionality to input

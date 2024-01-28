@@ -25,6 +25,7 @@ void ACP_Chicken::Hurt(int damage)
 // kill a chicken
 void ACP_Chicken::Die()
 {
+
 }
 
 // Called when the game starts or when spawned
