@@ -17,6 +17,8 @@ void AChickenCoup::BeginPlay()
 	Super::BeginPlay();
 
   GetWorld()->GetTimerManager().SetTimer(SpawnTimer, this, &AChickenCoup::SpawnChicken, SpawnInterval, true);
+
+  SpawnChicken();
 }
 
 void AChickenCoup::SpawnChicken()
