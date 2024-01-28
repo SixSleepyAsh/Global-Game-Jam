@@ -45,13 +45,13 @@ void ACP_ChickenCharacter::Hurt(int damage)
 
 void ACP_ChickenCharacter::Die()
 {
-  if (score != nullptr)
-  {
+    if (score != nullptr)
+    {
 		score->ScoreBonus(1);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Score actor not found in the world!"));
+		//UE_LOG(LogTemp, Warning, TEXT("Score actor not found in the world!"));
 	}
 	if (deathSound)
 	{
