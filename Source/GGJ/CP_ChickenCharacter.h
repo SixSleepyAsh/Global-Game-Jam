@@ -43,14 +43,24 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		ACP_Score* score = nullptr;
-public:	
 
+
+public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chicken")
 	int health = 50;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chicken")
 	int Damage = 5;
+
+	// Sounds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* deathSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* hurtSound;
+
+	int soundTimer = 0;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

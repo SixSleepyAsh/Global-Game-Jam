@@ -15,6 +15,10 @@ public:
 	// Sets default values for this character's properties
 	ACPP_OppossumPlayer();
 
+	// max hurt frames
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chicken")
+		int maxHurtFrames = 30;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -60,9 +64,6 @@ private:
 	// hurt frames
 	int hurtFrame = 0;
 
-	// max hurt frames
-	int maxHurtFrames = 120;
-
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
@@ -103,5 +104,12 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Sounds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* deathSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* hurtSound;
 
 };

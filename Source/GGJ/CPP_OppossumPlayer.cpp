@@ -5,6 +5,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Sound/SoundBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACPP_OppossumPlayer::ACPP_OppossumPlayer()
@@ -146,6 +148,11 @@ void ACPP_OppossumPlayer::Hurt(int damage)
 		}
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Got hurt");
 		canGetHurt = false;
+
+		if (hurtSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, hurtSound, GetActorLocation());
+		}
 	}
 }
 
@@ -154,6 +161,11 @@ void ACPP_OppossumPlayer::Die()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Died");
 	Destroy();
+
+	if (deathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, deathSound, GetActorLocation());
+	}
 
 	/// Add logic to initialize the death screen here
 	/// DO IT NINA!!
