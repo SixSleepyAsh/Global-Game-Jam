@@ -35,7 +35,6 @@ ACPP_OppossumPlayer::ACPP_OppossumPlayer()
 void ACPP_OppossumPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ACPP_OppossumPlayer::MoveForward(float InputAxis)
@@ -134,12 +133,53 @@ AActor* ACPP_OppossumPlayer::GetGun()
 	
 }
 
+// hurt the player
+void ACPP_OppossumPlayer::Hurt(int damage)
+{
+	if (canGetHurt)
+	{
+		health -= damage;
+
+		if (health <= 0)
+		{
+			Die();
+		}
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Got hurt");
+		canGetHurt = false;
+	}
+}
+
+// kill the player
+void ACPP_OppossumPlayer::Die()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, "Died");
+	Destroy();
+
+	/// Add logic to initialize the death screen here
+	/// DO IT NINA!!
+}
+
+// reset the hurt bool
+void ACPP_OppossumPlayer::ResetHurt()
+{
+	canGetHurt = true;
+}
+
 // Called every frame
 void ACPP_OppossumPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 	Update();
+
+	if (!canGetHurt)
+	{
+		hurtFrame++;
+		if (hurtFrame > maxHurtFrames)
+		{
+			hurtFrame = 0;
+			canGetHurt = true;
+		}
+	}
 }
 
 // Called to bind functionality to input

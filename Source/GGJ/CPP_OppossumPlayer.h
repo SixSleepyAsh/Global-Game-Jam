@@ -51,6 +51,18 @@ private:
 	// update our properties
 	void Update();
 
+	// Timer handle for spawning chickens
+	FTimerHandle SpawnTimer;
+
+	// if we can be hurt
+	bool canGetHurt = true;
+
+	// hurt frames
+	int hurtFrame = 0;
+
+	// max hurt frames
+	int maxHurtFrames = 120;
+
 public:	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
@@ -68,8 +80,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 		float dashDuration = 0.5f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+		int health = 50;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+		int invincibilityFrames = 120;
+
 	UFUNCTION(BlueprintCallable)
 		AActor* GetGun();
+
+	UFUNCTION(BlueprintCallable)
+		void Hurt(int damage);
+
+	UFUNCTION(BlueprintCallable)
+		void Die();
+
+	// Reset the hurt timer
+	void ResetHurt();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
