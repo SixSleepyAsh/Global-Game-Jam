@@ -13,7 +13,7 @@ ACPP_OppossumPlayer::ACPP_OppossumPlayer()
 	PrimaryActorTick.bCanEverTick = true;
 
 	/// Instantiate the camera component
-	springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	//springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 
 	/// Set the Location and Rotation of the Character
