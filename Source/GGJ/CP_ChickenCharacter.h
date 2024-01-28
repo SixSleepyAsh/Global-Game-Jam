@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include "Kismet/GameplayStatics.h" // Include this header for access to gameplay statics functions
 #include "CoreMinimal.h"
+#include "Components/BoxComponent.h"
+#include "CP_Score.h"
 #include "GameFramework/Character.h"
 #include "CP_ChickenCharacter.generated.h"
 
@@ -17,12 +20,14 @@ public:
 
 	// To be called when a chicken dies
 	UFUNCTION(BlueprintCallable)
-	void Hurt(int damage);
+		void Hurt(int damage);
 
 	// When a chicken dies
 	UFUNCTION(BlueprintCallable)
-	void Die();
+		void Die();
 
+	UFUNCTION(BlueprintCallable)
+		void UpdateScore();
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,10 +37,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USceneComponent* SceneRoot = nullptr;
 
-	// Add a Box Collision Component
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	UBoxComponent* CollisionMesh = nullptr;
+	 //Add a Box Collision Component
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UBoxComponent* CollisionMesh = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		ACP_Score* score = nullptr;
 public:	
 
 
