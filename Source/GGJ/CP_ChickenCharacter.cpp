@@ -2,6 +2,8 @@
 
 
 #include "CP_ChickenCharacter.h"
+#include "Sound/SoundBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ACP_ChickenCharacter::ACP_ChickenCharacter()
@@ -35,19 +37,26 @@ void ACP_ChickenCharacter::Hurt(int damage)
 	{
 		Die();
 	}
+	if (hurtSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, hurtSound, GetActorLocation());
+	}
 }
 
 void ACP_ChickenCharacter::Die()
 {
-    if (score != nullptr)
-    {
+  if (score != nullptr)
+  {
 		score->ScoreBonus(1);
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Score actor not found in the world!"));
 	}
-
+	if (deathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, deathSound, GetActorLocation());
+	}
 	Destroy();
 }
 
@@ -67,7 +76,12 @@ void ACP_ChickenCharacter::BeginPlay()
 void ACP_ChickenCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	soundTimer++;
 
+	if (soundTimer > 120)
+	{
+		soundTimer = 0;
+	}
 }
 
 // Called to bind functionality to input
