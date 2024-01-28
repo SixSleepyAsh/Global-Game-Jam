@@ -20,7 +20,7 @@ ACP_ChickenCharacter::ACP_ChickenCharacter()
     if (FoundActors.Num() > 0)
     {
         score = Cast<ACP_Score>(FoundActors[0]);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Found Stats")));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Found Stats")));
     }
     else
     {
