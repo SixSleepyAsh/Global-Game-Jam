@@ -33,8 +33,8 @@ protected:
 		USceneComponent* SceneRoot = nullptr;
 
 	// Add a Box Collision Component
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//	UBoxComponent* CollisionMesh = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UBoxComponent* CollisionMesh = nullptr;
 
 public:	
 
