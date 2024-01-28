@@ -41,6 +41,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 		bool isJumping = false;
 
+	UFUNCTION(BlueprintCallable)
+		AActor* GetGun();
+
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
